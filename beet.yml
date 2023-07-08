@@ -1,0 +1,16 @@
+name: Argon
+author: PuckiSilver
+version: v1.0.0
+output: build
+require: [bolt]
+
+data_pack:
+  load:
+    - libs/lantern-load.zip
+    - src
+  name: Argon
+  description: Match the correct entity when hitting or being hit
+
+pipeline: [mecha, plugins.credit]
+meta:
+  credit: [argon]

@@ -1,0 +1,8 @@
+.gitattributes
+.vscode
+.beet_cache
+__pycache__
+build
+release
+_private
+temp*

@@ -43,10 +43,7 @@ for i in range(bit_amt):
     pow = 2**i
     if entity @s[advancements={./player_hurt_entity={f'bit{i}'=true}}] scoreboard players add #id f'{namespace}.id' pow
 
-as @e[type=!#./non_living,sort=nearest,limit=1,predicate=./match_id] function ~/as_entity:
-    scoreboard players set #found f'{namespace}.id' 1
-    function #./player_hurt_entity
-
+as @e[type=!#./non_living,limit=1,predicate=./match_id] store success score #found f'{namespace}.id' function #./player_hurt_entity
 if score #found f'{namespace}.id' matches 0 run function #./player_killed_entity
 
 advancement revoke @s only ./player_hurt_entity

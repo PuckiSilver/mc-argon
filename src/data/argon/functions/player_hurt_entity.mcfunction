@@ -1,24 +1,17 @@
+from mecha import Mecha
+mc = ctx.inject(Mecha)
+from ./load import bit_amt
+
 namespace = __name__.split(':')[0]
 
 scoreboard players set #found f'{namespace}.id' 0
 
-if entity @s[advancements={./player_hurt_entity={
-    bit0=false,
-    bit1=false,
-    bit2=false,
-    bit3=false,
-    bit4=false,
-    bit5=false,
-    bit6=false,
-    bit7=false,
-    bit8=false,
-    bit9=false,
-    bit10=false,
-    bit11=false,
-    bit12=false,
-    bit13=false,
-    bit14=false,
-    bit15=false}}] function ~/setup/as_player:
+selector = "@s[advancements={./player_hurt_entity={"
+for i in range(bit_amt):
+    selector += f'bit{i}=false,'
+selector += "}}]"
+
+if entity mc.parse(selector, using="selector") function ~/setup/as_player:
         tag @s add f'{namespace}.player'
         as @e[type=!#./non_living,predicate=./not_setup,sort=nearest] function ~/../as_entity:
             if score #found f'{namespace}.id' matches 1 return -1
@@ -31,7 +24,7 @@ if entity @s[advancements={./player_hurt_entity={
                 scoreboard players operation @s f'{namespace}.id' = .global f'{namespace}.id'
                 scoreboard players operation #id f'{namespace}.id' = .global f'{namespace}.id'
 
-                for i in range (15,-1,-1):
+                for i in range (bit_amt-1,-1,-1):
                     pow = 2**i
                     if score #id f'{namespace}.id' matches (pow, None) scoreboard players set @s f'{namespace}.bit{i}' 1
                     if i != 0:
@@ -46,7 +39,7 @@ unless score #found f'{namespace}.id' matches 0 advancement revoke @s only ./pla
 unless score #found f'{namespace}.id' matches 0 return 0
 
 scoreboard players reset #id f'{namespace}.id'
-for i in range(16):
+for i in range(bit_amt):
     pow = 2**i
     if entity @s[advancements={./player_hurt_entity={f'bit{i}'=true}}] scoreboard players add #id f'{namespace}.id' pow
 

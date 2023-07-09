@@ -1,4 +1,4 @@
-name: Argon
+name: mc-argon
 author: PuckiSilver
 version: v1.0.0
 output: build
@@ -8,7 +8,7 @@ data_pack:
   load:
     - libs/lantern-load.zip
     - src
-  name: Argon
+  name: mc-argon
   description: Match the correct entity when hitting or being hit
 
 pipeline: [mecha, plugins.credit]

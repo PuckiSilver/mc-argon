@@ -31,41 +31,16 @@ if entity @s[advancements={./player_hurt_entity={
                 scoreboard players operation @s f'{namespace}.id' = .global f'{namespace}.id'
                 scoreboard players operation #id f'{namespace}.id' = .global f'{namespace}.id'
 
-                if score #id f'{namespace}.id' matches 32768.. scoreboard players set @s f'{namespace}.bit15' 1
-                if score #id f'{namespace}.id' matches 32768.. scoreboard players remove #id f'{namespace}.id' 32768
-                if score #id f'{namespace}.id' matches 16384.. scoreboard players set @s f'{namespace}.bit14' 1
-                if score #id f'{namespace}.id' matches 16384.. scoreboard players remove #id f'{namespace}.id' 16384
-                if score #id f'{namespace}.id' matches 8192.. scoreboard players set @s f'{namespace}.bit13' 1
-                if score #id f'{namespace}.id' matches 8192.. scoreboard players remove #id f'{namespace}.id' 8192
-                if score #id f'{namespace}.id' matches 4096.. scoreboard players set @s f'{namespace}.bit12' 1
-                if score #id f'{namespace}.id' matches 4096.. scoreboard players remove #id f'{namespace}.id' 4096
-                if score #id f'{namespace}.id' matches 2048.. scoreboard players set @s f'{namespace}.bit11' 1
-                if score #id f'{namespace}.id' matches 2048.. scoreboard players remove #id f'{namespace}.id' 2048
-                if score #id f'{namespace}.id' matches 1024.. scoreboard players set @s f'{namespace}.bit10' 1
-                if score #id f'{namespace}.id' matches 1024.. scoreboard players remove #id f'{namespace}.id' 1024
-                if score #id f'{namespace}.id' matches 512.. scoreboard players set @s f'{namespace}.bit9' 1
-                if score #id f'{namespace}.id' matches 512.. scoreboard players remove #id f'{namespace}.id' 512
-                if score #id f'{namespace}.id' matches 256.. scoreboard players set @s f'{namespace}.bit8' 1
-                if score #id f'{namespace}.id' matches 256.. scoreboard players remove #id f'{namespace}.id' 256
-                if score #id f'{namespace}.id' matches 128.. scoreboard players set @s f'{namespace}.bit7' 1
-                if score #id f'{namespace}.id' matches 128.. scoreboard players remove #id f'{namespace}.id' 128
-                if score #id f'{namespace}.id' matches 64.. scoreboard players set @s f'{namespace}.bit6' 1
-                if score #id f'{namespace}.id' matches 64.. scoreboard players remove #id f'{namespace}.id' 64
-                if score #id f'{namespace}.id' matches 32.. scoreboard players set @s f'{namespace}.bit5' 1
-                if score #id f'{namespace}.id' matches 32.. scoreboard players remove #id f'{namespace}.id' 32
-                if score #id f'{namespace}.id' matches 16.. scoreboard players set @s f'{namespace}.bit4' 1
-                if score #id f'{namespace}.id' matches 16.. scoreboard players remove #id f'{namespace}.id' 16
-                if score #id f'{namespace}.id' matches 8.. scoreboard players set @s f'{namespace}.bit3' 1
-                if score #id f'{namespace}.id' matches 8.. scoreboard players remove #id f'{namespace}.id' 8
-                if score #id f'{namespace}.id' matches 4.. scoreboard players set @s f'{namespace}.bit2' 1
-                if score #id f'{namespace}.id' matches 4.. scoreboard players remove #id f'{namespace}.id' 4
-                if score #id f'{namespace}.id' matches 2.. scoreboard players set @s f'{namespace}.bit1' 1
-                if score #id f'{namespace}.id' matches 2.. scoreboard players remove #id f'{namespace}.id' 2
-                if score #id f'{namespace}.id' matches 1.. scoreboard players set @s f'{namespace}.bit0' 1
+                for i in range (15,-1,-1):
+                    pow = 2**i
+                    if score #id f'{namespace}.id' matches (pow, None) scoreboard players set @s f'{namespace}.bit{i}' 1
+                    if i != 0:
+                        if score #id f'{namespace}.id' matches (pow, None) scoreboard players remove #id f'{namespace}.id' pow
+
         tag @s remove f'{namespace}.player'
 
+        if score #found f'{namespace}.id' matches 0 function #./player_killed_entity
         if score #found f'{namespace}.id' matches 0 scoreboard players set #found f'{namespace}.id' 2
-        if score #found f'{namespace}.id' matches 2 function #./player_killed_entity
 
 unless score #found f'{namespace}.id' matches 0 advancement revoke @s only ./player_hurt_entity
 unless score #found f'{namespace}.id' matches 0 return 0

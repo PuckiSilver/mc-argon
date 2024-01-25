@@ -45,7 +45,7 @@ for i in range(bit_amt):
 
 as @e[type=!#./non_living,limit=1,predicate=./match_id] function ~/as_entity:
     scoreboard players set #found f'{namespace}.id' 1
-    function #./player_hurt_entity
+    at @s function #./player_hurt_entity
 
 if score #found f'{namespace}.id' matches 0 run function #./player_killed_entity
 

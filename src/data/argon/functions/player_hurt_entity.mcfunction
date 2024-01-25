@@ -17,7 +17,7 @@ if entity mc.parse(selector, using="selector") function ~/setup/as_player:
             if score #found f'{namespace}.id' matches 1 return -1
             on attacker if entity @s[type=player,tag=f'{namespace}.player'] scoreboard players set #found f'{namespace}.id' 1
             if score #found f'{namespace}.id' matches 0 return -1
-            function #./player_hurt_entity
+            at @s function #./player_hurt_entity
             execute function ~/../setup_id:
                 scoreboard players add .global f'{namespace}.id' 1
                 if score .global f'{namespace}.id' matches 65537.. scoreboard players set .global f'{namespace}.id' 1

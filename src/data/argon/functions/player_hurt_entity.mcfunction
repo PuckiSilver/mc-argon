@@ -1,90 +1,77 @@
 from mecha import Mecha
 mc = ctx.inject(Mecha)
-from ./load import bit_amt
 
-namespace = __name__.split(':')[0]
-
-scoreboard players set #found f'{namespace}.id' 0
+scoreboard players set #found argon.id 0
 
 selector = "@s[advancements={./player_hurt_entity={"
-for i in range(bit_amt):
+for i in range(16):
     selector += f'bit{i}=false,'
 selector += "}}]"
 
 if entity mc.parse(selector, using="selector") function ~/setup/as_player:
-        tag @s add f'{namespace}.player'
-        as @e[type=!#./non_living,predicate=./not_setup,sort=nearest] function ~/../as_entity:
-            if score #found f'{namespace}.id' matches 1 return -1
-            on attacker if entity @s[type=player,tag=f'{namespace}.player'] scoreboard players set #found f'{namespace}.id' 1
-            if score #found f'{namespace}.id' matches 0 return -1
-            at @s function #./player_hurt_entity
-            execute function ~/../setup_id:
-                scoreboard players add .global f'{namespace}.id' 1
-                if score .global f'{namespace}.id' matches 65537.. scoreboard players set .global f'{namespace}.id' 1
-                scoreboard players operation @s f'{namespace}.id' = .global f'{namespace}.id'
-                scoreboard players operation #id f'{namespace}.id' = .global f'{namespace}.id'
+    tag @s add argon.player
+    as @e[type=!#./non_living,predicate=!./has_id,sort=nearest] function ~/../as_entity:
+        if score #found argon.id matches 1 return -1
+        on attacker if entity @s[type=player,tag=argon.player] scoreboard players set #found argon.id 1
+        if score #found argon.id matches 0 return -1
+        at @s function #./player_hurt_entity
+        execute function ~/../setup_id:
+            scoreboard players add .global argon.id 1
+            if score .global argon.id matches 65537.. scoreboard players set .global argon.id 1
+            scoreboard players operation @s argon.id = .global argon.id
+            scoreboard players operation #id argon.id = .global argon.id
 
-                for i in range (bit_amt-1,-1,-1):
-                    pow = 2**i
-                    if score #id f'{namespace}.id' matches (pow, None) scoreboard players set @s f'{namespace}.bit{i}' 1
-                    if i != 0:
-                        if score #id f'{namespace}.id' matches (pow, None) scoreboard players remove #id f'{namespace}.id' pow
+            for i in range (16-1,-1,-1):
+                pow = 2**i
+                if score #id argon.id matches (pow, None) scoreboard players set @s f'argon.bit{i}' 1
+                if i != 0:
+                    if score #id argon.id matches (pow, None) scoreboard players remove #id argon.id pow
 
-        tag @s remove f'{namespace}.player'
+    tag @s remove argon.player
 
-        if score #found f'{namespace}.id' matches 0 function #./player_killed_entity
-        if score #found f'{namespace}.id' matches 0 scoreboard players set #found f'{namespace}.id' 2
+    if score #found argon.id matches 0 function #./player_killed_entity
+    if score #found argon.id matches 0 scoreboard players set #found argon.id 2
 
-unless score #found f'{namespace}.id' matches 0 advancement revoke @s only ./player_hurt_entity
-unless score #found f'{namespace}.id' matches 0 return 0
+unless score #found argon.id matches 0 advancement revoke @s only ./player_hurt_entity
+unless score #found argon.id matches 0 return 0
 
-scoreboard players reset #id f'{namespace}.id'
-for i in range(bit_amt):
+scoreboard players reset #id argon.id
+for i in range(16):
     pow = 2**i
-    if entity @s[advancements={./player_hurt_entity={f'bit{i}'=true}}] scoreboard players add #id f'{namespace}.id' pow
+    if entity @s[advancements={./player_hurt_entity={f'bit{i}'=true}}] scoreboard players add #id argon.id pow
 
 as @e[type=!#./non_living,limit=1,predicate=./match_id] function ~/as_entity:
-    scoreboard players set #found f'{namespace}.id' 1
+    scoreboard players set #found argon.id 1
     at @s function #./player_hurt_entity
 
-if score #found f'{namespace}.id' matches 0 run function #./player_killed_entity
+if score #found argon.id matches 0 run function #./player_killed_entity
 
 advancement revoke @s only ./player_hurt_entity
 
 
-predicate ./not_setup {
-    "condition": "minecraft:value_check",
-    "value": {
-        "type": "minecraft:score",
-        "target": "this",
-        "score": f'{namespace}.id'
-    },
-    "range": 0
+predicate ./has_id {
+    "condition": "minecraft:entity_scores",
+    "entity": "this",
+    "scores": {
+        "argon.id": { "min": -2147483648 }
+    }
 }
 
 predicate ./match_id {
-    "condition": "minecraft:value_check",
-    "value": {
-        "type": "minecraft:score",
-        "target": "this",
-        "score": f'{namespace}.id'
-    },
-    "range": {
-        "min": {
-            "type": "minecraft:score",
-            "target": {
-                "type": "minecraft:fixed",
-                "name": "#id"
+    "condition": "minecraft:entity_scores",
+    "entity": "this",
+    "scores": {
+        "argon.id": {
+            "min": {
+                "type": "minecraft:score",
+                "target": { "type": "minecraft:fixed", "name": "#id" },
+                "score": "argon.id"
             },
-            "score": f'{namespace}.id'
-        },
-        "max": {
-            "type": "minecraft:score",
-            "target": {
-                "type": "minecraft:fixed",
-                "name": "#id"
-            },
-            "score": f'{namespace}.id'
+            "max": {
+                "type": "minecraft:score",
+                "target": { "type": "minecraft:fixed", "name": "#id" },
+                "score": "argon.id"
+            }
         }
     }
 }

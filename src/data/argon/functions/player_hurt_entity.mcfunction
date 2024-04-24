@@ -52,9 +52,7 @@ advancement revoke @s only ./player_hurt_entity
 predicate ./has_id {
     "condition": "minecraft:entity_scores",
     "entity": "this",
-    "scores": {
-        "argon.id": { "min": -2147483648 }
-    }
+    "scores": { "argon.id": {}}
 }
 
 predicate ./match_id {

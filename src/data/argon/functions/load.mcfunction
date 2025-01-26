@@ -1,5 +1,5 @@
 
-append function_tag load:load { "values": [ "argon:load" ]}
+append function_tag minecraft:load { "values": [ "argon:load" ]}
 
 scoreboard objectives add argon.id dummy
 for i in range(16):

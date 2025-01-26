@@ -2,7 +2,7 @@
 Match the correct entity when hitting or being hit
 
 ## **How to use the Library**
-1. Embed the [library](https://github.com/PuckiSilver/mc-argon/releases/latest) into your data pack by copying over the `argon`, `load` and `minecraft` namespaces
+1. Embed the [library](https://github.com/PuckiSilver/mc-argon/releases/latest) into your data pack by copying over the `argon` and `minecraft` namespaces
     - Be sure to merge where necessary (You most likely need to merge the `load.json` file)
 
 2. Add a function that should be called to one (or multiple) of the following function tags<br>

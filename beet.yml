@@ -1,13 +1,11 @@
 name: mc-argon
 author: PuckiSilver
-version: v1.0.1
+version: v1.2.0
 output: build
 require: [bolt]
 
 data_pack:
-  load:
-    - libs/lantern-load.zip
-    - src
+  load: src
   name: mc-argon
   description: Match the correct entity when hitting or being hit
 

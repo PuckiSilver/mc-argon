@@ -32,8 +32,7 @@ if entity mc.parse(selector, using="selector") function ~/setup/as_player:
     if score #found argon.id matches 0 function #./player_killed_entity
     if score #found argon.id matches 0 scoreboard players set #found argon.id 2
 
-unless score #found argon.id matches 0 advancement revoke @s only ./player_hurt_entity
-unless score #found argon.id matches 0 return 0
+unless score #found argon.id matches 0 return run advancement revoke @s only ./player_hurt_entity
 
 scoreboard players reset #id argon.id
 for i in range(16):
@@ -74,7 +73,7 @@ predicate ./match_id {
     }
 }
 
-entity_type_tag ./non_living { "values": [ # https://github.com/HeDeAnTheonlyone/Taglib/blob/main/data/taglib/tags/entity_types/non_living.json
+entity_type_tag ./non_living { "values": [ # https://github.com/HeDeAnTheonlyone/Taglib/blob/main/data/taglib/tags/entity_type/non_living.json
     { "id": "minecraft:arrow", "required": false },
     { "id": "minecraft:painting", "required": false },
     { "id": "minecraft:experience_orb", "required": false },

@@ -1,14 +1,34 @@
 {
     "criteria": {
-        "requirement": {
+        "direct": {
             "trigger": "minecraft:entity_hurt_player",
             "conditions": {
                 "damage": {
-                    "source_entity": {}
+                    "source_entity": {},
+                    "type": {
+                        "is_direct": true
+                    }
+                }
+            }
+        },
+        "ndirect": {
+            "trigger": "minecraft:entity_hurt_player",
+            "conditions": {
+                "damage": {
+                    "source_entity": {},
+                    "type": {
+                        "is_direct": false
+                    }
                 }
             }
         }
     },
+    "requirements": [
+        [
+            "direct",
+            "ndirect"
+        ]
+    ],
     "rewards": {
         "function": "argon:entity_hurt_player"
     }

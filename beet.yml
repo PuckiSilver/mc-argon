@@ -1,6 +1,6 @@
 name: mc-argon
 author: PuckiSilver
-version: v1.2.0
+version: v1.3.0
 output: build
 require: [bolt]
 

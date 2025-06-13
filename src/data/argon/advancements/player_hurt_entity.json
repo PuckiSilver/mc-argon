@@ -63,7 +63,9 @@
         "bit15": { "trigger": "minecraft:player_hurt_entity", "conditions": { "entity": [{ "condition": "minecraft:value_check", "value": { "type": "minecraft:score", "target": "this",
             "score": "argon.bit15" }, "range": 1 }]}},
         "nbit15": { "trigger": "minecraft:player_hurt_entity", "conditions": { "entity": [{ "condition": "minecraft:value_check", "value": { "type": "minecraft:score", "target": "this",
-            "score": "argon.bit15" }, "range": 0 }]}}
+            "score": "argon.bit15" }, "range": 0 }]}},
+        "direct": { "trigger": "minecraft:player_hurt_entity", "conditions": { "damage": { "type": { "is_direct": true }}}},
+        "ndirect": { "trigger": "minecraft:player_hurt_entity", "conditions": { "damage": { "type": { "is_direct": false }}}}
     },
     "requirements": [
         [ "bit0", "nbit0" ],
@@ -81,7 +83,8 @@
         [ "bit12", "nbit12" ],
         [ "bit13", "nbit13" ],
         [ "bit14", "nbit14" ],
-        [ "bit15", "nbit15" ]
+        [ "bit15", "nbit15" ],
+        [ "direct", "ndirect" ]
     ],
     "rewards": {
         "function": "argon:player_hurt_entity"

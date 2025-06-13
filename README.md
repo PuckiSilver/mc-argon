@@ -14,12 +14,15 @@ Match the correct entity when hitting or being hit
 - `#argon:entity_hurt_player`
     - `@s` is the **player** that has been hit
     - Using `execute on attacker` you can execute something as the **entity** that has hit the player
+    - The scoreboard `.is_direct argon.flags` is set to 1 if the hit was direct (melee) and set to 0 if it wasn't (arrow, tnt, ...)
 - `#argon:player_hurt_entity`
     - `@s` is the **entity** that has been hit
     - Using `execute on attacker` you can execute something as the **player** that has hit the entity
+    - The scoreboard `.is_direct argon.flags` is set to 1 if the hit was direct (melee) and set to 0 if it wasn't (arrow, tnt, ...)
 - `#argon:player_killed_entity`
     - `@s` is the **player** that has killed the entity
     - The **entity can't be reached** form this function since it has been killed
+    - The scoreboard `.is_direct argon.flags` is set to 1 if the hit was direct (melee) and set to 0 if it wasn't (arrow, tnt, ...)
 
 ---
 Check me out on other platforms:

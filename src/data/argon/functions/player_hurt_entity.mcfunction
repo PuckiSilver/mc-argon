@@ -1,6 +1,9 @@
 from mecha import Mecha
 mc = ctx.inject(Mecha)
 
+scoreboard players set .is_direct argon.flags 0
+if entity @s[advancements={./player_hurt_entity={direct=true}}] scoreboard players set .is_direct argon.flags 1
+
 scoreboard players set #found argon.id 0
 
 selector = "@s[advancements={./player_hurt_entity={"
@@ -45,6 +48,7 @@ as @e[type=!#./non_living,limit=1,predicate=./match_id] function ~/as_entity:
 
 if score #found argon.id matches 0 run function #./player_killed_entity
 
+scoreboard players reset .is_direct argon.flags
 advancement revoke @s only ./player_hurt_entity
 
 
